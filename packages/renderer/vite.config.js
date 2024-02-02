@@ -4,6 +4,7 @@ import {chrome} from '../../.electron-vendors.cache.json';
 import react from '@vitejs/plugin-react';
 import {renderer} from 'unplugin-auto-expose';
 import {join} from 'node:path';
+import {TanStackRouterVite} from '@tanstack/router-vite-plugin';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -43,6 +44,12 @@ const config = {
   },
   plugins: [
     react(),
+    TanStackRouterVite({
+      routesDirectory: join(PACKAGE_ROOT, '/src/routes'),
+      generatedRouteTree: join(PACKAGE_ROOT, '/src/routeTree.gen.ts'),
+      routeFileIgnorePrefix: '-',
+      quoteStyle: 'single',
+    }),
     renderer.vite({
       preloadEntry: join(PACKAGE_ROOT, '../preload/src/index.tsx'),
     }),
