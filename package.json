@@ -26,7 +26,6 @@
     "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,tsx,json}\""
   },
   "devDependencies": {
-    "@tanstack/router-cli": "^1.15.10",
     "@tanstack/router-vite-plugin": "^1.15.11",
     "@types/node": "20.11.5",
     "@types/react": "^18.2.51",
@@ -34,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "autoprefixer": "^10.4.17",
     "cross-env": "7.0.3",
+    "daisyui": "^4.6.1",
     "electron": "28.1.4",
     "electron-builder": "24.9.1",
     "eslint": "8.56.0",

@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "createdAt": "2024-02-05T20:44:02.709Z",
+  "name": "Empleados",
+  "colRel": [null, "123asda2134"],
+  "columns": ["Nombre", "Salario", "Correo"],
+  "rows": [["Alex"], [["1500", "ARS"]], ["ejemplo@gmail.com"]]
+}

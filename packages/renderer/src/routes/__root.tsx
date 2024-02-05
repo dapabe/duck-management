@@ -1,14 +1,12 @@
-import {createRootRoute, Outlet} from '@tanstack/react-router';
+import {createRootRoute, Navigate, Outlet} from '@tanstack/react-router';
 import {HeaderBar} from '../components/HeaderBar';
-// import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 export const Route = createRootRoute({
   component: () => (
-    <>
+    <div className="h-screen flex flex-col">
       <HeaderBar />
-      <hr />
       <Outlet />
-      {/* <TanStackRouterDevtools /> */}
-    </>
+    </div>
   ),
+  notFoundComponent: () => <Navigate to="/" />,
 });

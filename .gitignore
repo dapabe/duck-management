@@ -20,6 +20,7 @@ thumbs.db
 
 # Generated files
 .idea/**/contentModel.xml
+.packages/renderer/src/*.gen.ts
 
 # Sensitive or high-churn files
 .idea/**/dataSources/

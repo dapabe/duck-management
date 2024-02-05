@@ -5,39 +5,64 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TableRouteImport } from './routes/table/route'
+import { Route as IndexImport } from './routes/index'
+import { Route as TableIndexImport } from './routes/table/index'
 
 // Create Virtual Routes
 
-const TableLazyImport = createFileRoute('/table')()
-const IndexLazyImport = createFileRoute('/')()
+const TableIdTableLazyImport = createFileRoute('/table/$idTable')()
 
 // Create/Update Routes
 
-const TableLazyRoute = TableLazyImport.update({
+const TableRouteRoute = TableRouteImport.update({
   path: '/table',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/table.lazy').then((d) => d.Route))
+} as any)
 
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any)
+
+const TableIndexRoute = TableIndexImport.update({
+  path: '/',
+  getParentRoute: () => TableRouteRoute,
+} as any)
+
+const TableIdTableLazyRoute = TableIdTableLazyImport.update({
+  path: '/$idTable',
+  getParentRoute: () => TableRouteRoute,
+} as any).lazy(() =>
+  import('./routes/table/$idTable.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/table': {
-      preLoaderRoute: typeof TableLazyImport
+      preLoaderRoute: typeof TableRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/table/$idTable': {
+      preLoaderRoute: typeof TableIdTableLazyImport
+      parentRoute: typeof TableRouteImport
+    }
+    '/table/': {
+      preLoaderRoute: typeof TableIndexImport
+      parentRoute: typeof TableRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexLazyRoute, TableLazyRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  TableRouteRoute.addChildren([TableIdTableLazyRoute, TableIndexRoute]),
+])
